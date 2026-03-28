@@ -1,0 +1,8 @@
+# =======================================================
+# 🎯 CẤU HÌNH API TELEGRAM CÁ NHÂN (USERBOT)
+# =======================================================
+# Bạn hãy đăng nhập vào đường dẫn https://my.telegram.org/auth 
+# Chọn API development tools để lấy 2 thông số xương sống mạng này
+
+API_ID=12345678
+API_HASH="chuoi_hash_sieu_dai_abcd12345678abvd"
