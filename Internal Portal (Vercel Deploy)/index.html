@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cổng Thông Tin Nội Bộ | Antigravity AI</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-background"></div>
+    <div class="glass-container">
+        
+        <!-- SIDEBAR GIAO DIỆN -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-shapes"></i>
+                <span>Antigravity Hub</span>
+            </div>
+            
+            <p class="menu-label">MENU CHÍNH</p>
+            <ul class="nav-links">
+                <li class="active" onclick="switchTab('dashboard', this)"><i class="fa-solid fa-folder-open"></i> Kho Tài Liệu Số</li>
+                <li onclick="switchTab('directory', this)"><i class="fa-solid fa-address-book"></i> Danh bạ Nhân sự</li>
+            </ul>
+
+            <div class="user-profile">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="User">
+                <div class="user-info">
+                    <h4>Toàn thể Cán bộ NV</h4>
+                    <p>Internal Viewer</p>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT CHÍNH -->
+        <main class="main-content" style="padding-top: 40px;">
+            <section id="dashboard" class="tab-content active-tab">
+                <div class="welcome-banner">
+                    <div class="banner-text">
+                        <h1>Cổng Đồng Bộ Kiến Thức 2026</h1>
+                        <p>Hệ thống Web được khởi tạo động (Generator) tự động tổng hợp Tài liệu chữ (Text), Danh bạ (CSV) đúc thành trang thông tin trực quan tương tác toàn phần.</p>
+                    </div>
+                </div>
+
+                <h2 class="section-title" style="margin-top: 30px;">Tài Liệu Văn Bản Nội Bộ</h2>
+                <div class="cards-grid">
+                    
+        <div class="stat-card" style="transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div class="card-icon blue"><i class="fa-solid fa-file-contract"></i></div>
+            <div style="flex-grow: 1;">
+                <h3 style="text-transform: capitalize;">Chinh Sach Thuong Tet</h3>
+                <p style="text-align: justify; font-size: 13px; line-height: 1.6; margin-bottom: 12px;">CHÍNH SÁCH THƯỞNG CUỐI NĂM & THƯỞNG LỄ TẾT (NĂM TÀI CHÍNH 2026):
+
+Kính gửi: Toàn thể Cán bộ Nhân viên trực thuộc Antigravity Corp.
+Căn cứ vào kết quả ...</p>
+                <a href="doc_chinh_sach_thuong_tet.html" style="display: inline-block; padding: 6px 16px;text-decoration: none; background: #e2e8f0; border-radius: 6px; font-size: 13px; font-weight: 700; color: var(--text-main); transition: 0.2s;" onmouseover="this.style.background='var(--primary)'; this.style.color='white'" onmouseout="this.style.background='#e2e8f0'; this.style.color='var(--text-main)'">Đọc toàn văn <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="stat-card" style="transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div class="card-icon green"><i class="fa-solid fa-calendar-check"></i></div>
+            <div style="flex-grow: 1;">
+                <h3 style="text-transform: capitalize;">Hdsd Nghi Phep</h3>
+                <p style="text-align: justify; font-size: 13px; line-height: 1.6; margin-bottom: 12px;">QUY TRÌNH VÀ HƯỚNG DẪN XIN NGHỈ PHÉP NĂM 2026:
+
+Phòng Hành chính Nhân sự (HR) xin trân trọng thông báo đến toàn thể Cán bộ nhân viên (CBNV) về quy chế...</p>
+                <a href="doc_hdsd_nghi_phep.html" style="display: inline-block; padding: 6px 16px;text-decoration: none; background: #e2e8f0; border-radius: 6px; font-size: 13px; font-weight: 700; color: var(--text-main); transition: 0.2s;" onmouseover="this.style.background='var(--primary)'; this.style.color='white'" onmouseout="this.style.background='#e2e8f0'; this.style.color='var(--text-main)'">Đọc toàn văn <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+        <div class="stat-card" style="transition: 0.3s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+            <div class="card-icon purple"><i class="fa-solid fa-shield-halved"></i></div>
+            <div style="flex-grow: 1;">
+                <h3 style="text-transform: capitalize;">Noi Quy Cong Ty</h3>
+                <p style="text-align: justify; font-size: 13px; line-height: 1.6; margin-bottom: 12px;">CHƯƠNG 1: THỜI GIỜ LÀM VIỆC VÀ THỜI GIỜ NGHỈ NGƠI
+Điều 1: Khung giờ hoạt động chuẩn
+- Thời gian làm việc hành chính từ Thứ 2 đến Thứ 6 hàng tuần: Bắt ...</p>
+                <a href="doc_noi_quy_cong_ty.html" style="display: inline-block; padding: 6px 16px;text-decoration: none; background: #e2e8f0; border-radius: 6px; font-size: 13px; font-weight: 700; color: var(--text-main); transition: 0.2s;" onmouseover="this.style.background='var(--primary)'; this.style.color='white'" onmouseout="this.style.background='#e2e8f0'; this.style.color='var(--text-main)'">Đọc toàn văn <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </div>
+        
+                </div>
+            </section>
+
+             <section id="directory" class="tab-content">
+                <h2 class="section-title">Danh Bạ Liên Lạc Chuyên Ước</h2>
+                <div class="directory-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+                    
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Nguyễn+Tuấn+Anh&background=208223&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Nguyễn Tuấn Anh</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Giám đốc Điều hành (CEO)</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Ban Giám Đốc</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> ceo@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0901.234.567</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Trần+Minh+Châu&background=760729&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Trần Minh Châu</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Giám đốc Nhân sự (CHRO)</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Nhân sự</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> hr@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0912.345.678</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Lê+Hải+Đăng&background=26143&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Lê Hải Đăng</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Giám đốc Công nghệ (CTO)</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Công nghệ thông tin</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> cto@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0923.456.789</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Phạm+Hoàng+Yến&background=402210&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Phạm Hoàng Yến</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Trưởng phòng Marketing</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Marketing</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> marketing.lead@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0934.567.890</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Đặng+Kim+Phúc&background=338011&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Đặng Kim Phúc</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Kế toán trưởng</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Tài Chính</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> phuc.dang@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0988.777.666</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Vũ+Quỳnh+Nga&background=489843&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Vũ Quỳnh Nga</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Chuyên viên Content</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Marketing</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> nga.vu@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0956.789.012</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Hoàng+Trọng+Nghĩa&background=708955&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Hoàng Trọng Nghĩa</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Lập trình viên</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Công nghệ thông tin</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> nghia.hoang@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0945.678.901</p>
+                </div>
+            </div>
+            
+            <div class="stat-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;">
+                <img src="https://ui-avatars.com/api/?name=Lương+Sơn+Bá&background=226412&color=fff&size=80" style="border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                <div>
+                    <h3 style="font-size: 17px; margin-bottom: 5px; color: var(--text-main); font-weight: 700;">Lương Sơn Bá</h3>
+                    <span style="background: var(--bg-color); color: var(--primary); font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 20px; border: 1px solid #c7d2fe;">Chuyên viên R&D</span>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-muted);"><i class="fa-solid fa-briefcase"></i> Khối Nghiên Cứu</p>
+                    <hr style="margin: 15px 0; border: none; border-top: 1px dashed var(--border);">
+                    <p style="font-size: 13px; color: var(--text-main);"><i class="fa-solid fa-envelope"></i> baluong@antigravity.vn</p>
+                    <p style="font-size: 13px; color: var(--text-main); margin-top: 5px;"><i class="fa-solid fa-phone"></i> 0911.222.333</p>
+                </div>
+            </div>
+            
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

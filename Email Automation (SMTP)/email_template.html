@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #2ecc71;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            text-align: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .content-box {
+            color: #333333;
+            font-size: 16px;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            padding: 25px;
+            border-radius: 6px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        p {
+            color: #555555;
+            font-size: 15px;
+        }
+
+        .footer {
+            font-size: 13px;
+            color: #999999;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #eeeeee;
+            padding-top: 15px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{TIEU_DE}}</h1>
+
+        <div class="content-box">
+            <!-- AI Agent sẽ bơm nội dung động ở CSV vào biến bên dưới -->
+            {{NOI_DUNG}}
+        </div>
+
+        <p>Nếu bạn cần hỗ trợ thêm thông tin hoặc có thắc mắc, vui lòng phản hồi lại email này.</p>
+
+        <div class="footer">
+            Email này được phân phối bởi <strong>Trợ Lý Tự Động Hóa (AI Agent Workflow)</strong>.<br>
+            Antigravity Corp - Nâng tầm năng suất doanh nghiệp.
+        </div>
+    </div>
+</body>
+
+</html>

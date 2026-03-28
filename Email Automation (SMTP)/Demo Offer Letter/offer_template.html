@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { max-width: 600px; margin: 30px auto; background-color: #ffffff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); border-top: 5px solid #2ecc71; }
+        h1 { color: #2c3e50; font-size: 24px; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 25px; }
+        .content-box { color: #333333; font-size: 16px; line-height: 1.6; background-color: #f9f9f9; padding: 25px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #3498db; }
+        p { color: #555555; font-size: 15px; }
+        .footer { font-size: 13px; color: #999999; text-align: center; margin-top: 30px; border-top: 1px solid #eeeeee; padding-top: 15px; }
+        .highlight { font-weight: bold; color: #e74c3c; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 CHÚC MỪNG BẠN ĐÃ TRÚNG TUYỂN!</h1>
+        <p>Thân gửi anh/chị <strong>{{HO_TEN}}</strong>,</p>
+        <p>Công ty Antigravity rất vui mừng gửi đến bạn thư mời nhận việc (Offer Letter) cho vị trí <strong>{{VI_TRI}}</strong>.</p>
+        
+        <div class="content-box">
+            <p>📋 <strong>CHI TIẾT CHÍNH THỨC:</strong></p>
+            <p>▪️ Vị trí công tác: <strong>{{VI_TRI}}</strong></p>
+            <p>▪️ Mức lương (Gross): <span class="highlight">{{MUC_LUONG}}</span> / tháng</p>
+            <p>▪️ Tài liệu đính kèm: Vui lòng xem thủ tục ở file đính kèm email này.</p>
+        </div>
+
+        <p>Để xác nhận đồng ý nhận việc, bạn vui lòng phản hồi lại email này kèm theo các giấy tờ bổ sung nhé.</p>
+
+        <div class="footer">
+            Email phân phối bởi <strong>Trợ Lý Điện Toán Antigravity</strong>.<br>
+            Chúng tôi mong chờ sự góp mặt của bạn!
+        </div>
+    </div>
+</body>
+</html>
