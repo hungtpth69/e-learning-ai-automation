@@ -1,0 +1,11 @@
+Customer Email,Message Content,Sentiment
+cust1@test.com,The service was absolutely amazing and fast!,Positive
+cust2@test.com,I am really disappointed with the slow response.,Negative
+cust3@test.com,Everything was good. Thank you.,Positive
+cust4@test.com,Terrible experience. Never using this again!,Negative
+cust5@test.com,The staff was very helpful and professional.,Positive
+cust6@test.com,I had some issues but they were resolved quickly.,Positive
+cust7@test.com,The product quality is bad.,Negative
+cust8@test.com,Great value for money.,Positive
+cust9@test.com,I waited for 3 hours and no one helped me. Terrible.,Negative
+cust10@test.com,Satisfied with the purchase. Highly recommended.,Positive

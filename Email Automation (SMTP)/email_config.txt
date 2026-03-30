@@ -2,8 +2,8 @@
 EMAIL_PROVIDER="smtp"
 
 # 1. CẤU HÌNH GMAIL SMTP (Dùng App Password)
-GMAIL_ADDRESS="ten_cua_ban@gmail.com"
-GMAIL_APP_PASSWORD="abcd efgh ijkl mnop"
+GMAIL_ADDRESS="hung.tran@danishsoftware.com"
+GMAIL_APP_PASSWORD="tcwa uavx vekx rblr"
 
 # 2. CẤU HÌNH RESEND API
 RESEND_API_KEY="re_123456789_xxxxxxxx"

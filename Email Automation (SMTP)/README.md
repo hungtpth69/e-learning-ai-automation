@@ -1,57 +1,54 @@
-# 📧 Email Automation (Hệ Thống Gửi Email API/SMTP)
+# 📧 Hướng Dẫn Thực Hành (Demo Usecase): Kênh Gửi Email Bằng AI Agent
 
-> **Hệ thống Gửi Email Tự Động Hóa Tốc Độ Cao**
-> Quản lý bởi Agent. Dành cho người vận hành (Non-tech) thiết lập và gửi hàng ngàn Email cá nhân hóa mà không cần biết code.
+> **Tình Huống Sử Dụng (Usecase): Gửi Thông Báo Kết Quả Phỏng Vấn (Offer Letter)**
+> Dành cho bộ phận Tuyển dụng (HR). 
+> Thay vì lụi cụi mở từng Email, gõ Tên Ứng viên, copy mức Lương đề xuất và tự tay bấm "Attach" từng cái File PDF riêng lẻ, bạn sẽ học cách giao phó việc này cho một "Thư ký ảo AI Agent". Chỉ cần một file Excel chứa toàn bộ data, AI sẽ giúp bạn cá nhân hóa nội dung và nhả 100 email gửi thành công chỉ trong 5 phút.
 
-## 🎯 Mục Đích Hoạt Động
-Phần mềm này giúp bạn kết nối thẳng vào các Trạm viễn thông Gửi thư lớn nhất thế giới để cá nhân hóa nội dung (thay tên, thay mức lương, đính kèm file riêng) và gửi hàng loạt một cách hoàn toàn tự động.
+---
 
-## 🛠 Hướng Dẫn Cài Đặt Tài Khoản Dành Cho Người Mới (Step-by-Step)
-*Để code hiểu được mộc dấu của công ty bạn, bạn cần Đăng ký và Lấy Chìa Khóa (Mật khẩu/API Key) từ 1 trong 3 nhà mạng bên dưới:*
+## 🎯 Bối Cảnh Thực Tiễn & Năng Lực Của Agent
 
-### Lựa chọn 1: Dùng Mạng Lưới Gmail Cá Nhân (SMTP)
-*Phù hợp cho nhu cầu bé (dưới 300 mail/ngày).*
-Google không cho phép phần mềm đăng nhập bằng Mật khẩu thường của bạn. Bạn phải tạo "Mật khẩu Ứng dụng":
-1. Truy cập [Bảo mật Google](https://myaccount.google.com/security) và **Bật Xác minh 2 bước**.
-2. **[TUYỆT CHIÊU ẨN]** Google gần đây đã giấu ô này cực kỳ kỹ. Bạn hãy copy nguyên đường link bí mật này dán lên Trình duyệt để vào thẳng: [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
-   *(Hoặc gõ chữ "Mật khẩu ứng dụng" / "App passwords" vào ô Kính Lúp tìm kiếm ở trên đỉnh trang web).*
-3. Ở màn hình hiện ra, phần "Tên ứng dụng", gõ xuất xứ (Ví dụ: `Antigravity Agent`) rồi bấm **Tạo (Create)**.
-4. Google sẽ hiện ra một cái bảng vàng có **16 chữ cái** (VD: `abcd efgh ijkl mnop`). Hãy **COPY** mật khẩu này.
-5. Trở về thư mục, mở file `email_config.txt` lên, dán vào dòng `GMAIL_APP_PASSWORD="..."`.
+**Bài Toán:** Công ty vừa kết thúc đợt phỏng vấn 100 Ứng viên. HR cần trả kết quả ngay trong ngày. File Danh sách Đậu/Rớt và Lương đã chốt nằm trên file Excel.
 
-### Lựa chọn 2: Dùng Dịch Vụ Cấp Doanh Nghiệp RESENDS
-*Tốc độ cực nhanh, tỷ lệ vào Inbox gần 100%, không lo khóa tài khoản.*
-1. Vào trang web [Resend.com](https://resend.com/) và bấm nút đen **Get Started** để đăng ký tài khoản (Nên bấm Continue with Github/Google cho nhanh).
-2. Khi vào giao diện chính (Dashboard), nhìn sang menu Trái, chọn nút chìa khóa **API Keys**.
-3. Bấm nút đen **Create API Key** ở góc phải trên. Cửa sổ hỏi tên, hãy gõ (VD: `Email Agent`), Chọn mục `Full Access` rồi nhấn tạo.
-4. Màn hình sẽ hiện ra một chuỗi cực dài bắt đầu bằng `re_` (Ví dụ: `re_123456789_xxxxxxxx`). **BẤM COPY NGAY LẬP TỨC** vì nó chỉ hiện 1 lần.
-5. (Tuỳ chọn) Mở menu Trái, chọn **Domains**. Bấm **Add Domain** và làm theo hướng dẫn để thêm Tên miền Website của công ty bạn (Ví dụ `tencongty.com`). Nếu không có Domain, Resend cho phép test gửi qua cổng ảo `<onboarding@resend.dev>` nhưng chỉ thư sẽ chỉ bay vào email của chính bạn.
-6. Trở lại file `email_config.txt`. Dán chuỗi `API Key` cực dài này vào dòng `RESEND_API_KEY="..."`. Đồng thời trỏ súng bằng cách đổi cấu hình `EMAIL_PROVIDER="resend"`.
+**🤖 Siêu Năng Lực của Antigravity Agent:**
+Luồng Auto này sẽ cung cấp:
+*   **Gán Tên và Điểm Xóa Nhòa Lỗi Con Người:** Tự động gọi đúng vị trí, tên, bộ phận từ Excel điền vào Template thư. Không bao giờ gửi nhầm Lương người này sang Email người kia.
+*   **Tự Động Đọc Và Quét Tiềm Năng (Parsing):** Thậm chí AI có thể quét Hòm Inbox của bạn, tự gom các thư phản hồi *"Đồng ý nhận việc"* và đưa vào mục Đã chốt hợp đồng.
 
-### Lựa chọn 3: Dùng SENDGRID (Cho Siêu Chiến Dịch Hàng Triệu Data)
-1. Đăng ký tài khoản tại [SendGrid.com](https://sendgrid.com/).
-2. Chọn menu Settings -> API Keys -> Create API Key -> Full Access. Lấy chuỗi mã bắt đầu bằng `SG.xxxx`.
-3. Nhớ vào Sender Authentication để verify một Email thực gửi của bạn. Điền thông tin mã hóa vào dòng `SENDGRID_API_KEY="..."` trong file `email_config.txt`.
+*(Lưu ý: Trước khi khởi chạy thực hành, cần đảm bảo bạn đã kết nối Cấu hình Mạng Lưới Gửi Email thành công theo hướng dẫn trong bài `SETUP_GUIDE.md`)*
 
-## ⚙️ Cấu Hình Khởi Chạy
-Để đảm bảo bảo mật tuyệt đối, chúng ta KỴ việc dán Mật khẩu thẳng vào File lập trình. Hãy làm như sau:
-1. Nhìn vào thư mục này, bạn sẽ thấy 1 file có tên là `email_config.txt`.
-2. Mở file `email_config.txt` bằng Notepad. Bạn sẽ thấy các dòng điền sẵn.
-3. Dán các Mã/Chìa Khóa bạn vừa lấy ở trên vào đúng dòng tương ứng trong ngoặc kép. (Ví dụ: `GMAIL_APP_PASSWORD="abcd efgh kh"`).
-4. Tiếp theo, mở file Excel/ CSV `email_contact_list.csv` và nhập thông tin người nhận thật của bạn.
+---
 
-*(Lưu ý: Mọi code đã sử dụng thư viện điện toán tiêu chuẩn, không yêu cầu người dùng phải gõ lệnh cài đặt thêm bất kỳ thư viện nào (`Zero pip install`)).*
+## 🛠 Chuẩn Bị File Đầu Vào (Mockup Data)
 
-## 🚀 Hướng Dẫn Kích Hoạt Phần Mềm
-Sau khi đã gắn khóa vào code, ở cửa sổ lệnh (Terminal), bạn chỉ cần gõ 1 câu lệnh này để Bot bắt đầu xả xúng:
-```
+Để Robot làm việc xuất sắc, hãy chuẩn bị nguyên liệu (Data Mồi) ở 3 lớp cốt lõi nằm trong chính thư mục dự án này:
+
+### 1. Lớp Dữ Liệu (`email_contact_list.csv`)
+- Mở file Excel này lên. Đây là cột xương sống của chiến dịch.
+- Đảm bảo trong bảng có đủ Tên Ứng Viên, Địa chỉ Email, Vị trí ứng tuyển, Lương đề xuất. AI sẽ tự động hiểu cột nào ứng với chỗ trống nào trong bức thư để "lắp ghép".
+
+### 2. Lớp Nội Dung Cốt (`email_template.html`)
+- Gửi Email tuyển dụng cần sự chuyên nghiệp (Chữ in đậm, nghiêng, Logo công ty).
+- Hệ thống đã thiết kế sẵn một khuôn mẫu Website (HTML) để Email gửi ra nhìn thật "xịn". Phím giữ nguyên cấu trúc file, chỉ thay đổi Câu chữ (Text) bên trong nếu bạn cần.
+
+### 3. Lớp Test (Duyệt Trước Khi Kích Ráp)
+Khuyến cáo người hành nghề: Luôn luôn yêu cầu Phầm mềm *"Hãy cho tôi xem 1 bản nháp điền dữ liệu của Bạn Nguyễn Văn A trước"*. AI sẽ tự xuất ảnh cho bạn đọc lại. Khớp Lương chưa? Đúng Tên chưa? Rồi mới "Khai Hỏa".
+
+---
+
+## 🚀 Kích Hoạt Luồng AI (Tiễn Chiến Dịch Lên Mạng)
+
+Khi file danh bạ CSV của bạn đã hoàn tất, hãy triệu hồi AI Agent bằng một dòng lệnh duy nhất tại cửa sổ lệnh (Terminal):
+
+```bash
 /sendmesemail
 ```
 
-*[Đặc biệt] Để chạy luồng Gửi Thư Mời Nhận Việc (Có đính kèm File PDF/Docs)*:
-```
+**[Usecase Đính kèm File Nâng Cao]:** 
+Trường hợp bạn không chỉ gửi nội dung thư mà còn đính kèm 1 file "Phụ Lục Hợp Đồng Đồng_Nguyễn_Văn_A.pdf" ném riêng vào từng mail, hãy dùng lệnh chuyên sâu:
+```bash
 /gui-offer-letter
 ```
 
-## 📊 Hệ Thống Hoạt Động & Kết Quả
-Màn hình Máy tính sẽ hiện từng dòng báo cáo `[➔] THÀNH CÔNG`. Khi màn hình dừng lại, tức là Agent đã gửi xong 100% tệp. Hãy mở file `email_sent_log.csv` để đối soát xem thư nào gửi thành công, thư nào thất bại do sai Email ngay trên máy tính của bạn rành rọt như một Thư ký Excel.
+### 📊 Xem Thành Quả (Report Ghi Nhận)
+Gác tay lên bàn và quan sát màn hình IDE. Một loạt dòng thông báo `[➔] THÀNH CÔNG` sẽ nhấp nháy xanh lá. Khi Agent bảo vệ công việc của mình xong, bạn mở file **`email_sent_log.csv`** được sinh ra mới tinh để đối soát danh sách gửi thành công như một bản báo cáo hoàn hảo nộp Giám Đốc nhân sự!

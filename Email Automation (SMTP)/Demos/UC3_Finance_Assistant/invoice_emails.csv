@@ -1,0 +1,6 @@
+Sender,Subject,Attachment,Amount,Date,Company
+invoice@service.com,Monthly Invoice - Mar 2026,inv1.pdf,150,2026-03-01,Service_A
+billing@cloud.com,Cloud Hosting Invoice - Mar,billing_cloud.pdf,45,2026-03-05,Cloud_Hub
+accounts@supplier.io,Invoice #9901 - Office Supplies,supp_01.pdf,1200,2026-03-10,Supplier_IO
+finance@isp.net,Internet Monthly Bill Mar,isp_bill.pdf,60,2026-03-15,ISP_Net
+marketing@agency.com,Ad Campaign Invoice - Mar 2026,agency_inv.pdf,3500,2026-03-20,Agency_MKT

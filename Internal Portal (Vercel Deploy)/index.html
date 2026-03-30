@@ -3,334 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trạm Kết Nối Dữ Liệu | Antigravity AI Engine</title>
-    <!-- Tailwind CSS (CDN) -->
+    <title>Cổng Thông Tin Nội Bộ | Antigravity</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <script src="data.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Outfit', sans-serif; 
-            background: #0b0f19; /* Siêu Dark Mode */
-            color: #f8fafc; 
-            overflow-x: hidden; 
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .search-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .search-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-bottom: 2px solid #818cf8;
+            color: white;
+        }
+        .tab-btn:not(.active) {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .tab-btn:hover:not(.active) {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
         }
         
-        /* Hiệu ứng mờ ảo ma thuật Glassmorphism */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.45);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* Modal */
+        .modal {
+            display: none;
         }
-        
-        /* Cầu ánh sáng vật lý lơ lửng */
-        .orb {
-            position: fixed; 
-            border-radius: 50%; 
-            filter: blur(120px); 
-            z-index: -1; 
-            opacity: 0.5;
-            animation: float 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        .modal.active {
+            display: flex;
         }
-        .orb-1 { width: 550px; height: 550px; background: #4f46e5; top: -150px; left: -100px; }
-        .orb-2 { width: 450px; height: 450px; background: #db2777; bottom: -50px; right: -150px; animation-duration: 30s; animation-delay: -5s; }
-        .orb-3 { width: 300px; height: 300px; background: #0ea5e9; top: 40%; left: 30%; animation-duration: 40s; opacity: 0.3; }
-        
-        @keyframes float { 
-            0% { transform: translate(0, 0) scale(1); } 
-            100% { transform: translate(200px, 150px) scale(1.3); } 
-        }
-        
-        /* Hiệu ứng di chuột nổi khối 3D */
-        .card-hover { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .card-hover:hover { 
-            transform: translateY(-8px) scale(1.02); 
-            box-shadow: 0 25px 50px rgba(99, 102, 241, 0.15); 
-            border-color: rgba(99, 102, 241, 0.4); 
-            background: rgba(30, 41, 59, 0.6);
-        }
-        
-        /* Tab Navigation Neon Style */
-        .tab-btn { position: relative; transition: all 0.3s ease; }
-        .tab-btn::after {
-            content: ''; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%); 
-            width: 0; height: 3px; background: #6366f1; border-radius: 3px; 
-            transition: width 0.3s ease; box-shadow: 0 0 10px #6366f1;
-        }
-        .tab-btn.active { color: white; text-shadow: 0 0 15px rgba(255,255,255,0.4); font-weight: 700; }
-        .tab-btn.active::after { width: 100%; }
-        
-        /* Chuyển màn hình Fade In */
-        .content-section { display: none; opacity: 0; animation: fadeIn 0.6s ease forwards; }
-        .content-section.active { display: block; }
-        @keyframes fadeIn { 
-            from { opacity: 0; transform: translateY(20px); filter: blur(5px); } 
-            to { opacity: 1; transform: translateY(0); filter: blur(0); } 
-        }
-
-        /* Scrollbar tàng hình công nghệ */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.8); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center">
-    
-    <!-- Lấy dòng chảy Data từ lõi Python -->
-    <script src="data.js"></script>
-
-    <!-- Hạt nhân Ánh sáng (Môi trường) -->
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-
-    <!-- CÁU TRÚC APP CHÍNH -->
-    <div class="w-full max-w-7xl px-4 sm:px-8 py-10 relative z-10" id="app">
-        
-        <!-- Header & Nav -->
-        <header class="flex flex-col md:flex-row justify-between items-center mb-16 glass-panel p-6 rounded-[2rem]">
-            <div class="flex items-center gap-5 mb-6 md:mb-0">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(99,102,241,0.5)]">
-                    <i class="fa-solid fa-layer-group text-white"></i>
-                </div>
-                <div>
-                    <h1 class="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-gray-400 tracking-tight">Cổng Tri Thức Nội Bộ</h1>
-                    <p class="text-sm text-indigo-300/80 font-medium uppercase tracking-widest mt-1">Đồng Bộ Data.js • Xử Lý Máy Chủ Cục Bộ</p>
-                </div>
-            </div>
-            <nav class="flex gap-10 bg-slate-900/50 px-8 py-4 rounded-full border border-slate-700/50">
-                <button class="tab-btn active text-gray-400 font-medium text-lg tracking-wide hover:text-white" onclick="switchTab('view-docs', this)">
-                    <i class="fa-solid fa-book-open mr-2"></i> Kho Tài Liệu
-                </button>
-                <button class="tab-btn text-gray-400 font-medium text-lg tracking-wide hover:text-white" onclick="switchTab('view-contacts', this)">
-                    <i class="fa-solid fa-address-card mr-2"></i> Danh Bạ Nhân Sự
-                </button>
-            </nav>
-        </header>
-
-        <!-- VIEW 1: DOCUMENTS (KHO TÀI LIỆU) -->
-        <main id="view-docs" class="content-section active w-full">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                <div>
-                    <h2 class="text-4xl font-bold mb-3 text-white drop-shadow-lg">Tài Liệu Định Tính</h2>
-                    <p class="text-slate-400 text-lg font-light">Tuyển tập các báo cáo, quy trình và văn bản phi cấu trúc.</p>
-                </div>
-                
-                <!-- Thanh Tìm Kiếm Động -->
-                <div class="relative w-full md:w-[400px] group">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-magnifying-glass text-indigo-400 group-focus-within:text-pink-400 transition-colors"></i>
-                    </div>
-                    <input type="text" id="searchDocs" onkeyup="filterContent('docsGrid', 'searchDocs')" placeholder="Truy vấn tên báo cáo, tài liệu..." 
-                        class="w-full bg-slate-800/60 border border-slate-600/50 rounded-2xl py-4 pl-12 pr-4 text-white font-medium focus:outline-none focus:border-indigo-500 focus:bg-slate-800/90 focus:ring-4 focus:ring-indigo-500/20 transition-all placeholder:text-slate-500 shadow-inner">
-                </div>
-            </div>
-
-            <!-- Lưới Card Tài liệu -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="docsGrid">
-                <!-- Javascript Nhúng Data Vào Kẽ Này -->
-            </div>
-        </main>
-
-        <!-- VIEW 2: FULL READER (ĐỌC TOÀN VĂN MỞ RỘNG) -->
-        <main id="view-reader" class="content-section w-full">
-            <button onclick="switchTab('view-docs', document.querySelectorAll('.tab-btn')[0])" class="mb-8 px-6 py-3 rounded-full glass-panel text-indigo-100 font-semibold hover:bg-indigo-600 hover:border-indigo-400 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)] transition-all flex items-center gap-3 w-fit">
-                <i class="fa-solid fa-arrow-left"></i> Quay lại Kho Tài Liệu
-            </button>
-            
-            <div class="glass-panel p-8 md:p-14 rounded-[2.5rem] relative overflow-hidden ring-1 ring-white/10">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-                <h1 id="readerTitle" class="text-4xl md:text-5xl font-extrabold mb-8 text-transparent bg-clip-text bg-gradient-to-br from-white to-slate-400 capitalize leading-tight"></h1>
-                <div class="flex items-center gap-4 mb-10 text-slate-400 text-sm font-medium">
-                    <span class="px-3 py-1 bg-slate-800 rounded-lg"><i class="fa-regular fa-file-lines mr-2"></i> Định dạng: TXT (Bóc tách Data Lake)</span>
-                    <span class="px-3 py-1 bg-slate-800 rounded-lg"><i class="fa-solid fa-shield-halved mr-2"></i> Quyền Đọc: Nội bộ</span>
-                </div>
-                <div class="w-full h-[1px] bg-gradient-to-r from-slate-700 to-transparent mb-10"></div>
-                
-                <div id="readerContent" class="text-lg md:text-xl text-slate-300 leading-[1.8] font-light whitespace-pre-wrap text-justify selection:bg-pink-500/30"></div>
-            </div>
-        </main>
-
-        <!-- VIEW 3: CONTACTS (DANH BẠ NHÂN SỰ) -->
-        <main id="view-contacts" class="content-section w-full">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                <div>
-                    <h2 class="text-4xl font-bold mb-3 text-white drop-shadow-lg">Mạng Lưới Chuyên Gia</h2>
-                    <p class="text-slate-400 text-lg font-light">Hồ sơ trích xuất tự động từ luồng khối danh bạ CSV.</p>
-                </div>
-                
-                <!-- Thanh Tìm Kiếm Động -->
-                <div class="relative w-full md:w-[400px] group">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-user-astronaut text-pink-400 group-focus-within:text-indigo-400 transition-colors"></i>
-                    </div>
-                    <input type="text" id="searchContacts" onkeyup="filterContent('contactsGrid', 'searchContacts')" placeholder="Tìm kiếm đồng nghiệp, chức vụ..." 
-                        class="w-full bg-slate-800/60 border border-slate-600/50 rounded-2xl py-4 pl-12 pr-4 text-white font-medium focus:outline-none focus:border-pink-500 focus:bg-slate-800/90 focus:ring-4 focus:ring-pink-500/20 transition-all placeholder:text-slate-500 shadow-inner">
-                </div>
-            </div>
-            
-            <!-- Lưới Card Nhân Sự -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="contactsGrid">
-                <!-- Javascript Nhúng Data Vào Kẽ Này -->
-            </div>
-        </main>
-
-        <!-- Chữ Ký Footer -->
-        <footer class="mt-28 mb-8 text-center flex flex-col items-center justify-center">
-            <div class="w-24 h-[1px] bg-gradient-to-r from-transparent via-slate-500 to-transparent mb-6"></div>
-            <p class="text-slate-500/70 text-sm font-medium tracking-wide">
-                <i class="fa-solid fa-wand-magic-sparkles text-indigo-400 mr-2"></i> 
-                Code HTML sinh động bởi Antigravity Agent (UI Prompt Mastery)
-            </p>
-        </footer>
+<body class="antialiased relative overflow-x-hidden">
+    <!-- Decorative background elements -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600 blur-[120px] opacity-30"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600 blur-[150px] opacity-20"></div>
+        <div class="absolute top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-blue-500 blur-[100px] opacity-20"></div>
     </div>
 
-    <!-- THUẬT TOÁN LOGIC VANILLA JS -->
+    <!-- Navigation -->
+    <nav class="glass-nav sticky top-0 z-40 w-full">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <i class="fa-solid fa-atom text-white text-xl"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-purple-200">
+                        Antigravity Portal
+                    </span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="switchTab('docs')" id="tab-docs" class="tab-btn active px-4 py-2 rounded-t-lg text-sm font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-folder-open"></i> Kho Tài Liệu
+                        </button>
+                        <button onclick="switchTab('contacts')" id="tab-contacts" class="tab-btn px-4 py-2 rounded-t-lg text-sm font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-address-book"></i> Danh Bạ Nhân Sự
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" style="min-height: calc(100vh - 64px);">
+        
+        <!-- Header & Search -->
+        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 id="page-title" class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    Kho Tài Liệu Nội Bộ
+                </h1>
+                <p id="page-subtitle" class="text-gray-400 mt-1 text-sm">
+                    Tra cứu quy chế, văn bản, biểu mẫu hiện hành của công ty.
+                </p>
+            </div>
+            
+            <div class="relative w-full md:w-96 group">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 group-focus-within:text-indigo-400 transition-colors"></i>
+                </div>
+                <input type="text" id="searchInput" onkeyup="handleSearch()" 
+                    class="search-input w-full pl-10 pr-3 py-2.5 rounded-xl transition duration-300" 
+                    placeholder="Tìm kiếm tài liệu...">
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                    <span class="text-xs text-gray-500 font-mono">/</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Render Container -->
+        <div id="content-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Content will be injected here by JS -->
+        </div>
+        
+        <!-- Empty State (Hidden by default) -->
+        <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-gray-400">
+            <i class="fa-regular fa-folder-open text-6xl mb-4 opacity-50"></i>
+            <h3 class="text-xl font-medium text-white mb-2">Không tìm thấy dữ liệu</h3>
+            <p>Không có kết quả nào khớp với từ khóa tìm kiếm của bạn.</p>
+        </div>
+
+    </main>
+
+    <!-- Document Modal -->
+    <div id="docModal" class="modal fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+        <div class="glass w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
+            <div class="flex justify-between items-center p-6 border-b border-white/10 bg-white/5">
+                <h2 id="modalTitle" class="text-2xl font-bold text-white flex gap-3 items-center">
+                    <i class="fa-solid fa-file-contract text-indigo-400"></i>
+                    <span>Tên tài liệu</span>
+                </h2>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1 bg-black/20">
+                <div id="modalBody" class="text-gray-200 leading-relaxed whitespace-pre-wrap font-mono text-sm">
+                    Nội dung tài liệu...
+                </div>
+            </div>
+            <div class="p-4 border-t border-white/10 bg-white/5 flex justify-end">
+                <button onclick="closeModal()" class="px-6 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors shadow-lg shadow-indigo-500/30">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
+    </style>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Kiểm tra Data
+        let currentTab = 'docs'; // 'docs' or 'contacts'
+        
+        // Ensure portalData is loaded
+        document.addEventListener("DOMContentLoaded", () => {
             if (typeof portalData === 'undefined') {
-                document.getElementById('app').innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-[60vh] text-center max-w-2xl mx-auto">
-                        <i class="fa-solid fa-triangle-exclamation text-6xl text-red-500 mb-6 animate-bounce"></i>
-                        <h2 class="text-3xl font-bold text-white mb-4">Mạch Dữ Liệu Bị Đứt!</h2>
-                        <p class="text-slate-400 text-lg">Hệ thống Front-End không tìm thấy 'data.js' ở khu vực này. Bạn vui lòng quay lại Terminal, chạy lệnh <code class="bg-slate-800 text-pink-400 px-2 rounded">python optimized_raw_input.py</code> để đúc khối dữ liệu trước nhé!</p>
+                document.getElementById('content-container').innerHTML = `
+                    <div class="col-span-full text-center py-10 bg-red-500/20 text-red-200 rounded-xl border border-red-500/30">
+                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-3"></i>
+                        <p>Lỗi: Không tìm thấy file data.js. Vui lòng chạy tool xuất dữ liệu trước.</p>
                     </div>`;
-            } else {
-                initPortal(portalData);
+                return;
             }
+            renderData();
         });
 
-        // Đổi Màn Hình
-        function switchTab(viewId, btnElement) {
-            // Đổi màu Button
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            if(btnElement) btnElement.classList.add('active');
-
-            // Ẩn hiện View
-            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-            document.getElementById(viewId).classList.add('active');
+        function switchTab(tab) {
+            currentTab = tab;
             
-            // Cuộn trơn tru lên đầu
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Update UI
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            
+            // Update Header
+            if (tab === 'docs') {
+                document.getElementById('page-title').innerText = 'Kho Tài Liệu Nội Bộ';
+                document.getElementById('page-subtitle').innerText = 'Tra cứu quy chế, văn bản, biểu mẫu hiện hành của công ty.';
+                document.getElementById('searchInput').placeholder = 'Tìm kiếm tài liệu...';
+            } else {
+                document.getElementById('page-title').innerText = 'Danh Bạ Nhân Sự';
+                document.getElementById('page-subtitle').innerText = 'Thông tin liên lạc của các thành viên trong công ty.';
+                document.getElementById('searchInput').placeholder = 'Tìm kiếm tên, phòng ban...';
+            }
+            
+            // Clear search
+            document.getElementById('searchInput').value = '';
+            
+            renderData();
         }
 
-        // Khởi xướng Trải Giao Diện
-        function initPortal(data) {
-            // 1. Phân Rã Tài Liệu Text
-            const docsGrid = document.getElementById('docsGrid');
-            if(data.documents.length === 0) {
-                docsGrid.innerHTML = '<div class="col-span-full p-8 text-center text-slate-500 border border-dashed border-slate-700 rounded-2xl">Kho tư liệu Trống Rỗng</div>';
-            }
+        function renderData(searchQuery = '') {
+            const container = document.getElementById('content-container');
+            const emptyState = document.getElementById('empty-state');
+            container.innerHTML = '';
             
-            const docGradients = [
-                'from-indigo-500 to-cyan-400', 
-                'from-fuchsia-600 to-pink-500', 
-                'from-violet-600 to-indigo-600',
-                'from-rose-400 to-orange-500'
-            ];
+            const query = searchQuery.toLowerCase();
+            let hasResults = false;
 
-            data.documents.forEach((doc, idx) => {
-                const colorTheme = docGradients[idx % docGradients.length];
-                const card = document.createElement('div');
-                card.className = 'glass-panel rounded-[2rem] p-8 card-hover flex flex-col filter-item';
-                card.innerHTML = `
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr ${colorTheme} flex items-center justify-center text-white text-2xl mb-8 shadow-lg">
-                        <i class="fa-solid fa-folder-open"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-white capitalize leading-snug filter-target">${doc.title}</h3>
-                    <p class="text-slate-400 text-[15px] mb-8 flex-grow leading-relaxed">${doc.preview}</p>
-                    <button onclick="readFullDoc('${doc.id}')" class="w-full py-3.5 rounded-xl bg-slate-800/80 border border-slate-600 hover:border-indigo-400 text-indigo-300 font-bold hover:bg-indigo-600 hover:text-white transition-all group flex items-center justify-center gap-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
-                        Hé lộ nội dung <i class="fa-solid fa-arrow-right-long opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all"></i>
-                    </button>
-                `;
-                docsGrid.appendChild(card);
-            });
-
-            // 2. Phân Rã Danh Bạ CSV Không Cần Cấu Trúc Khớp Nhau (Schema-less)
-            const contactsGrid = document.getElementById('contactsGrid');
-            if(data.contacts.length === 0) {
-                contactsGrid.innerHTML = '<div class="col-span-full p-8 text-center text-slate-500 border border-dashed border-slate-700 rounded-2xl">Danh bạ Trống Rỗng</div>';
-            }
-
-            data.contacts.forEach((contact, idx) => {
-                const keys = Object.keys(contact);
-                if(keys.length === 0) return;
-
-                // Thám tử tự động: Cột 1 là Tên, Cột 2 là Chức Vụ
-                const name = contact[keys[0]] || 'Ẩn Danh';
-                const role = keys.length > 1 ? contact[keys[1]] : 'Nhân Sự Base';
-                
-                // Thuật toán tạo màu Avatar rực rỡ dựa vào Tên (Consistent Hash)
-                let hash = 0; for(let i=0; i<name.length; i++) hash = name.charCodeAt(i) + ((hash<<5)-hash);
-                const colorCode = Math.abs(hash).toString(16).substring(0,6).padStart(6,'0');
-
-                // Lọc các thông tin Phụ lắt nhắt
-                let theRestData = '';
-                keys.slice(2).forEach(k => {
-                    if(contact[k]) {
-                        theRestData += `
-                        <div class="flex flex-col mb-4">
-                            <span class="text-[11px] uppercase tracking-widest text-indigo-400/80 font-bold mb-1">${k.replace(/_/g,' ')}</span>
-                            <span class="text-sm text-slate-300 drop-shadow">${contact[k]}</span>
-                        </div>`;
+            if (currentTab === 'docs') {
+                const docs = portalData.documents || [];
+                docs.forEach(doc => {
+                    if (doc.title.toLowerCase().includes(query) || doc.preview.toLowerCase().includes(query)) {
+                        hasResults = true;
+                        container.innerHTML += \`
+                            <div class="glass-card rounded-2xl p-6 flex flex-col h-full cursor-pointer group" onclick="openDoc('\${doc.id}')">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fa-solid fa-file-lines text-xl"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2 line-clamp-1">\${doc.title}</h3>
+                                <p class="text-sm text-gray-400 flex-1 line-clamp-3 mb-4">\${doc.preview}</p>
+                                <div class="mt-auto pt-4 border-t border-white/10 flex justify-between items-center text-xs text-indigo-300 font-medium">
+                                    <span>Đọc chi tiết</span>
+                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                </div>
+                            </div>
+                        \`;
                     }
                 });
+            } else {
+                const contacts = portalData.contacts || [];
+                contacts.forEach(contact => {
+                    if (contact.Ho_Ten.toLowerCase().includes(query) || 
+                        contact.Phong_Ban.toLowerCase().includes(query) ||
+                        contact.Chuc_Vu.toLowerCase().includes(query) ||
+                        contact.Email.toLowerCase().includes(query)) {
+                        
+                        hasResults = true;
+                        
+                        // Generate Avatar Initials
+                        const initials = contact.Ho_Ten.split(' ').map(n=>n[0]).slice(-2).join('').toUpperCase();
+                        
+                        container.innerHTML += \`
+                            <div class="glass-card rounded-2xl p-6 flex flex-col h-full relative overflow-hidden">
+                                <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-bl-full -z-10"></div>
+                                <div class="flex items-start gap-4 mb-5">
+                                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                                        \${initials}
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="text-lg font-bold text-white truncate">\${contact.Ho_Ten}</h3>
+                                        <div class="inline-block mt-1 px-2.5 py-1 rounded-full bg-white/10 text-xs text-indigo-200 font-medium whitespace-nowrap">
+                                            \${contact.Phong_Ban}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-3 mt-auto">
+                                    <div class="flex items-center gap-3 text-sm text-gray-300">
+                                        <i class="fa-solid fa-briefcase text-gray-400 w-4"></i>
+                                        <span class="truncate">\${contact.Chuc_Vu}</span>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm text-gray-300">
+                                        <i class="fa-solid fa-envelope text-gray-400 w-4"></i>
+                                        <a href="mailto:\${contact.Email}" class="hover:text-indigo-300 transition-colors truncate">\${contact.Email}</a>
+                                    </div>
+                                    <div class="flex items-center gap-3 text-sm text-gray-300">
+                                        <i class="fa-solid fa-phone text-gray-400 w-4"></i>
+                                        <a href="tel:\${contact.So_Dien_Thoai}" class="hover:text-indigo-300 transition-colors">\${contact.So_Dien_Thoai}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        \`;
+                    }
+                });
+            }
 
-                const card = document.createElement('div');
-                card.className = 'glass-panel rounded-[2rem] p-7 flex flex-col card-hover border-t-[3px] border-t-pink-500 filter-item';
-                card.innerHTML = `
-                    <div class="flex items-center gap-5 mb-8">
-                        <div class="relative">
-                            <img src="https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=${colorCode}&color=fff&size=128&font-size=0.4&bold=true" 
-                                class="w-16 h-16 rounded-2xl border-2 border-white/20 shadow-lg object-cover">
-                            <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-[rgba(15,23,42,1)] rounded-full"></div>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-xl text-white truncate filter-target">${name}</h3>
-                            <span class="inline-block mt-2 text-xs px-2.5 py-1 bg-pink-500/20 text-pink-300 rounded-lg font-semibold truncate max-w-full border border-pink-500/30">${role}</span>
-                        </div>
-                    </div>
-                    <div class="w-full h-[1px] bg-slate-700/60 mb-6"></div>
-                    <div class="flex-grow">
-                        ${theRestData}
-                    </div>
-                `;
-                contactsGrid.appendChild(card);
-            });
-        }
-
-        // Đọc File Toàn Văn Bản
-        function readFullDoc(id) {
-            const documentTarget = portalData.documents.find(d => d.id === id);
-            if(documentTarget) {
-                document.getElementById('readerTitle').innerText = documentTarget.title;
-                document.getElementById('readerContent').innerText = documentTarget.content;
-                switchTab('view-reader', null);
+            // Toggle empty state
+            if (hasResults) {
+                container.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                emptyState.classList.remove('flex');
+            } else {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
             }
         }
 
-        // Logic Thanh Tìm Kiếm Trực Tiếp mượt mà
-        function filterContent(gridId, inputId) {
-            const query = document.getElementById(inputId).value.toLowerCase();
-            const grid = document.getElementById(gridId);
-            const items = grid.querySelectorAll('.filter-item');
-            
-            items.forEach(item => {
-                const targetText = item.querySelector('.filter-target').innerText.toLowerCase();
-                if(targetText.includes(query)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        function handleSearch() {
+            const query = document.getElementById('searchInput').value;
+            renderData(query);
         }
+
+        // Modal Logic
+        function openDoc(id) {
+            const doc = portalData.documents.find(d => d.id === id);
+            if (!doc) return;
+            
+            document.getElementById('modalTitle').innerHTML = \`<i class="fa-solid fa-file-contract text-indigo-400"></i> <span>\${doc.title}</span>\`;
+            document.getElementById('modalBody').innerText = doc.content;
+            
+            const modal = document.getElementById('docModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modal.classList.add('active');
+            // Small trigger delay for animation
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('docModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Close modal on click outside
+        document.getElementById('docModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Listen to keyboard shortcut (Slash to focus search)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
+            }
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('docModal');
+                if (modal.classList.contains('active')) closeModal();
+            }
+        });
     </script>
 </body>
 </html>

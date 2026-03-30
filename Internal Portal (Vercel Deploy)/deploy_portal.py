@@ -2,8 +2,10 @@ import os
 import time
 import subprocess
 import shutil
+import sys
 
-REPO_NAME = "antigravity-hub-2026"
+# Nhận tên repo từ tham số truyền vào, mặc định là "antigravity-hub-2026"
+REPO_NAME = sys.argv[1] if len(sys.argv) > 1 else "antigravity-hub-2026"
 
 def run_cmd(cmd, check=False):
     """Chạy lệnh Shell ngầm"""
