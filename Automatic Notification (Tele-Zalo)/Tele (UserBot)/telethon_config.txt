@@ -4,5 +4,5 @@
 # Bạn hãy đăng nhập vào đường dẫn https://my.telegram.org/auth 
 # Chọn API development tools để lấy 2 thông số xương sống mạng này
 
-API_ID=12345678
-API_HASH="chuoi_hash_sieu_dai_abcd12345678abvd"
+API_ID="38382374"
+API_HASH="22c30d52bebd8783d8954df95ec2273e"
