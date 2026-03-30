@@ -19,7 +19,7 @@ Google không cho phép phần mềm đăng nhập bằng Mật khẩu thường
 4. Google sẽ hiện ra một cái bảng vàng có **16 chữ cái** (VD: `abcd efgh ijkl mnop`). Hãy **COPY** mật khẩu này.
 5. Trở về thư mục, mở file `email_config.txt` lên, dán vào dòng `GMAIL_APP_PASSWORD="..."`.
 
-### Lựa chọn 2: Dùng Dịch Vụ Cấp Doanh Nghiệp RESEND (Khuyên dùng)
+### Lựa chọn 2: Dùng Dịch Vụ Cấp Doanh Nghiệp RESENDS
 *Tốc độ cực nhanh, tỷ lệ vào Inbox gần 100%, không lo khóa tài khoản.*
 1. Vào trang web [Resend.com](https://resend.com/) và bấm nút đen **Get Started** để đăng ký tài khoản (Nên bấm Continue with Github/Google cho nhanh).
 2. Khi vào giao diện chính (Dashboard), nhìn sang menu Trái, chọn nút chìa khóa **API Keys**.
