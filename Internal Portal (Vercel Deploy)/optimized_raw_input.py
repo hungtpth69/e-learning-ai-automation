@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+import os
+import glob
+import time
+import csv
+import json
+
+RAW_DIR = "Raw_Documents"
+OUTPUT_FILE = "data.js"
+
+HTML_TEMPLATE = r"""<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -228,4 +237,90 @@
         }
     </script>
 </body>
-</html>
+</html>"""
+
+def check_and_restore_html():
+    if not os.path.exists("index.html"):
+        print("\n⚠️ [Agent] Phát hiện thiếu file giao diện `index.html`! Đang tự động triển khai bản gốc...")
+        with open("index.html", "w", encoding="utf-8") as f:
+            f.write(HTML_TEMPLATE)
+        print("✅ Đã khôi phục thành công file `index.html` bằng Template Kính Toàn Năng (Glassmorphism)!")
+    else:
+        print("\n💡 [Agent] File `index.html` đã tồn tại an toàn. Đã ngắt cơ chế ghi đè để bảo vệ tuỳ biến của bạn.")
+
+def parse_text_documents():
+    docs = []
+    files = glob.glob(f"{RAW_DIR}/*.txt")
+    for idx, filepath in enumerate(files):
+        filename = os.path.basename(filepath).replace(".txt", "").replace("_", " ")
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read().strip()
+        
+        preview = (content[:150] + '...') if len(content) > 150 else content
+        safe_id = f"doc_{idx}"
+        
+        docs.append({
+            "id": safe_id,
+            "title": filename,
+            "preview": preview,
+            "content": content
+        })
+    return docs
+
+def parse_csv_directory():
+    contacts = []
+    csv_files = glob.glob(f"{RAW_DIR}/*.csv")
+    if not csv_files:
+        return []
+        
+    filepath = csv_files[0]
+    with open(filepath, mode='r', encoding='utf-8-sig') as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            cleaned_row = {k.strip(): v.strip() for k, v in row.items() if k}
+            contacts.append(cleaned_row)
+            
+    return contacts
+
+def main():
+    print("======================================================")
+    print("🚀 OFFLINE DATA COMPILER: TỐI ƯU HÓA DỮ LIỆU ĐẦU VÀO 🚀")
+    print("======================================================\n")
+    
+    # 1. Tự động đẻ Web UI nếu lỡ tay làm mất
+    check_and_restore_html()
+    
+    if not os.path.exists(RAW_DIR):
+        print(f"❌ Thư mục '{RAW_DIR}' chưa tồn tại. Hệ thống đã tự động tạo mới.")
+        os.makedirs(RAW_DIR, exist_ok=True)
+        print(f"⚠️ Vui lòng đưa các file bài viết (.txt) và danh bạ (.csv) vào '{RAW_DIR}' rồi chạy lại nhé.")
+        return
+        
+    print(f"🔍 [Agent] Bước 1: Thu thập Dữ liệu Text phân mảnh tại '{RAW_DIR}'...")
+    time.sleep(1)
+    docs = parse_text_documents()
+    print(f"   -> Đã trích xuất {len(docs)} tài liệu.")
+    
+    print(f"🔍 [Agent] Bước 2: Thu thập Dữ liệu Danh bạ CSV trong '{RAW_DIR}'...")
+    time.sleep(1)
+    contacts = parse_csv_directory()
+    print(f"   -> Đã trích xuất {len(contacts)} người dùng.")
+    
+    print("🧠 [Agent] Bước 3: Đóng gói toàn bộ Data thành Cấu Trúc Khối Vandal `data.js`...")
+    time.sleep(1)
+    
+    data_payload = {
+        "documents": docs,
+        "contacts": contacts
+    }
+    
+    js_content = "const portalData = " + json.dumps(data_payload, ensure_ascii=False, indent=4) + ";"
+    
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        f.write(js_content)
+        
+    print(f"\n✅ HOÀN TẤT! Đã siêu nén toàn bộ dữ liệu thô vào file `{OUTPUT_FILE}` thành công!")
+    print("👉 Hãy nhấp đúp file `index.html` nằm cạnh file này bằng Google Chrome để chiêm ngưỡng Dynamic Web UI vô hạn!")
+
+if __name__ == "__main__":
+    main()
