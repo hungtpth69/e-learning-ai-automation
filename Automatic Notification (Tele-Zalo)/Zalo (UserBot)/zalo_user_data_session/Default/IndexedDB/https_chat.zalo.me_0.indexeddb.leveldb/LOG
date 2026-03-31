@@ -1,24 +1,2 @@
-2026/03/31-19:05:51.423 20374 Reusing MANIFEST E:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo (UserBot)\zalo_user_data_session\Default\IndexedDB\https_chat.zalo.me_0.indexeddb.leveldb/MANIFEST-000001
-2026/03/31-19:05:51.424 20374 Recovering log #3
-2026/03/31-19:05:51.456 20374 Reusing old log E:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo (UserBot)\zalo_user_data_session\Default\IndexedDB\https_chat.zalo.me_0.indexeddb.leveldb/000003.log 
-2026/03/31-19:06:11.524 28d04 Level-0 table #5: started
-2026/03/31-19:06:11.542 28d04 Level-0 table #5: 1367507 bytes OK
-2026/03/31-19:06:11.546 28d04 Delete type=0 #3
-2026/03/31-19:06:15.537 28d04 Level-0 table #7: started
-2026/03/31-19:06:15.557 28d04 Level-0 table #7: 1312645 bytes OK
-2026/03/31-19:06:15.561 28d04 Delete type=0 #4
-2026/03/31-19:06:16.433 28d04 Compacting 1@1 + 1@2 files
-2026/03/31-19:06:16.491 28d04 Generated table #8@1: 20158 keys, 1622082 bytes
-2026/03/31-19:06:16.491 28d04 Compacted 1@1 + 1@2 files => 1622082 bytes
-2026/03/31-19:06:16.494 28d04 compacted to: files[ 0 0 1 0 0 0 0 ]
-2026/03/31-19:06:19.745 20374 Level-0 table #10: started
-2026/03/31-19:06:19.765 20374 Level-0 table #10: 972856 bytes OK
-2026/03/31-19:06:19.769 20374 Delete type=2 #5
-2026/03/31-19:06:19.769 20374 Delete type=0 #6
-2026/03/31-19:06:19.769 20374 Delete type=2 #7
-2026/03/31-19:06:19.773 20374 Compacting 1@1 + 1@2 files
-2026/03/31-19:06:19.851 20374 Generated table #11@1: 29868 keys, 1691539 bytes
-2026/03/31-19:06:19.852 20374 Compacted 1@1 + 1@2 files => 1691539 bytes
-2026/03/31-19:06:19.855 20374 compacted to: files[ 0 0 1 0 0 0 0 ]
-2026/03/31-19:06:19.856 20374 Delete type=2 #8
-2026/03/31-19:06:19.856 20374 Delete type=2 #10
+2026/03/31-20:51:12.194 5bbc Creating DB E:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo (UserBot)\zalo_user_data_session\Default\IndexedDB\https_chat.zalo.me_0.indexeddb.leveldb since it was missing.
+2026/03/31-20:51:12.213 5bbc Reusing MANIFEST E:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo (UserBot)\zalo_user_data_session\Default\IndexedDB\https_chat.zalo.me_0.indexeddb.leveldb/MANIFEST-000001

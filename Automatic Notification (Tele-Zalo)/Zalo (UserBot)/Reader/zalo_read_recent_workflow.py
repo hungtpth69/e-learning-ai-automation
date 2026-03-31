@@ -110,6 +110,9 @@ def read_recent_zalo_messages(max_chats=10):
                 print(f"   [🔴] Lỗi khi xử lý đoạn chat thứ {i+1}: {e}")
                 
         print("\n🎉 Đã hoàn thành duyệt danh sách chat!")
+        import json
+        with open('zalo_raw_recent_content.json', 'w', encoding='utf-8') as f:
+            json.dump(extracted_data, f, ensure_ascii=False, indent=4)
         browser.close()
 
 if __name__ == '__main__':
