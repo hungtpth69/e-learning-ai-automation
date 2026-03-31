@@ -2,4 +2,4 @@
 # 🎯 CẤU HÌNH BOT TELEGRAM
 # =======================================================
 # Dán mã Token cấu hình của BotFather vào trong dấu ngoặc kép bên dưới:
-TELEGRAM_BOT_TOKEN="123456789:ABCdefGHIjklMNOpqrSTUvwxyz"
+TELEGRAM_BOT_TOKEN="your_telegram_bot_token"

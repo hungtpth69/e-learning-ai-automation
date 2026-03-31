@@ -2,13 +2,13 @@
 EMAIL_PROVIDER="smtp"
 
 # 1. CẤU HÌNH GMAIL SMTP (Dùng App Password)
-GMAIL_ADDRESS="hung.tran@danishsoftware.com"
-GMAIL_APP_PASSWORD="elqo nhie hnwf hsbj"
+GMAIL_ADDRESS="your_email@gmail.com"
+GMAIL_APP_PASSWORD="your_app_password"
 
 # 2. CẤU HÌNH RESEND API
-RESEND_API_KEY="re_123456789_xxxxxxxx"
-RESEND_SENDER="onboarding@resend.dev"
+RESEND_API_KEY="your_resend_api_key"
+RESEND_SENDER="your_sender@domain.com"
 
 # 3. CẤU HÌNH SENDGRID API
-SENDGRID_API_KEY="SG.xxxxx"
-SENDGRID_SENDER="marketing@congty.com"
+SENDGRID_API_KEY="your_sendgrid_api_key"
+SENDGRID_SENDER="your_sender@domain.com"

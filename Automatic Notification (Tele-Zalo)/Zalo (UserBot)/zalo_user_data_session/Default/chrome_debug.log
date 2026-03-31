@@ -1,7 +1,0 @@
-[0331/143908.600:INFO:CONSOLE(0)] "Fetch event handler is recognized as no-op. No-op fetch handler may bring overhead during navigation. Consider removing the handler if possible.", source:  (0)
-[0331/143909.017:INFO:CONSOLE(53)] "User logged", source: https://chat.zalo.me/ (53)
-[0331/143910.648:INFO:CONSOLE(1)] "%cDừng lại! color:red; font-size:60px; font-weight: bold; -webkit-text-stroke: 1px var(--text-primary);", source: https://zalo-chat-static.zadn.vn/v1/lazy/default-embed-render.e78411b02eef9ff5b4e5.js (1)
-[0331/143910.648:INFO:CONSOLE(1)] "%cĐây là một tính năng của trình duyệt dành cho các nhà phát triển. Nếu ai đó bảo bạn sao chép-dán nội dung nào đó vào đây để bật một tính năng của Zalo hoặc "hack" tài khoản của người khác, thì đó là hành vi lừa đảo và sẽ khiến họ có thể truy cập vào tài khoản Zalo của bạn. font-size: 18px;", source: https://zalo-chat-static.zadn.vn/v1/lazy/default-embed-render.e78411b02eef9ff5b4e5.js (1)
-[0331/143910.649:INFO:CONSOLE(1)] "%cTruy cập https://zalo.me/faq.html để biết thêm thông tin. font-size: 18px;", source: https://zalo-chat-static.zadn.vn/v1/lazy/default-embed-render.e78411b02eef9ff5b4e5.js (1)
-[0331/143910.972:INFO:CONSOLE(1)] "ZLOG: opfs worker ready", source: https://zalo-chat-static.zadn.vn/v1/lazy/web-startup.76417c75084eb01018b4.js (1)
-[0331/143911.596:INFO:CONSOLE(1)] "Uncaught (in promise) not support", source: https://zalo-chat-static.zadn.vn/v1/lazy/0.90037aca1813bed7243d.js (1)
