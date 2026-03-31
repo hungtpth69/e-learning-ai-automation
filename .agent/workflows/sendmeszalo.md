@@ -1,11 +1,22 @@
 ---
-description: Khởi chạy luồng Agent gửi tin Zalo Official Account (API Doanh Nghiệp)
+description: Khởi chạy luồng Agent tương tác Zalo (Zalo OA hoặc Zalo Cá Nhân UserBot)
 ---
-This workflow triggers the Zalo OA automation script which reads from the contact list, dynamically generates content, pushes notifications via Zalo OA API, and logs the execution results natively.
+Quy trình (Workflow) này hỗ trợ 3 kịch bản tự động hóa Zalo khác nhau tùy theo mục đích sử dụng. Hệ thống Agent sẽ căn cứ vào mong muốn của bạn để kích hoạt lệnh chạy phù hợp:
 
-// turbo-all
-1. Khởi chạy luồng Agent xử lý dữ liệu và gửi Zalo OA
+1. [Trường hợp Zalo OA Doanh Nghiệp] Khởi chạy luồng Gửi tin nhắn qua API ẩn danh:
 ```bash
 cd "e:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo"
 python zalo_oa_workflow.py
+```
+
+2. [Trường hợp Zalo Cá Nhân - Gửi Tin] Khởi chạy luồng DOM giả lập để gửi tin (Sender):
+```bash
+cd "e:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo (UserBot)\Sender"
+python zalo_send_workflow.py
+```
+
+3. [Trường hợp Zalo Cá Nhân - Đọc Tin] Khởi chạy luồng DOM giả lập để kết xuất tin nhắn (Reader):
+```bash
+cd "e:\Antigravity\e-learning\Automatic Notification (Tele-Zalo)\Zalo (UserBot)\Reader"
+python zalo_read_workflow.py
 ```
