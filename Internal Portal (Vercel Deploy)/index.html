@@ -1,377 +1,491 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cổng Thông Tin Nội Bộ | Antigravity</title>
+    <title>Antigravity Internal Portal</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="data.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        glass: {
+                            50: 'rgba(255, 255, 255, 0.05)',
+                            100: 'rgba(255, 255, 255, 0.1)',
+                            200: 'rgba(255, 255, 255, 0.2)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
         body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
-            color: #f8fafc;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            background-attachment: fixed;
             min-height: 100vh;
         }
-        .glass {
-            background: rgba(255, 255, 255, 0.05);
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-header {
+            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .search-input {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.5);
         }
-        .search-input:focus {
-            outline: none;
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.5);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
         }
-        .tab-btn {
-            transition: all 0.3s ease;
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
-        .tab-btn.active {
-            background: rgba(255, 255, 255, 0.15);
-            border-bottom: 2px solid #818cf8;
-            color: white;
+
+        /* Blob animations */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.6;
+            animation: move 20s infinite alternate;
         }
-        .tab-btn:not(.active) {
-            color: rgba(255, 255, 255, 0.6);
+
+        @keyframes move {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(20px, -20px) scale(1.1);
+            }
         }
-        .tab-btn:hover:not(.active) {
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        /* Modal */
+
         .modal {
             display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
+
         .modal.active {
             display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
         }
     </style>
 </head>
-<body class="antialiased relative overflow-x-hidden">
-    <!-- Decorative background elements -->
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-600 blur-[120px] opacity-30"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-600 blur-[150px] opacity-20"></div>
-        <div class="absolute top-[40%] left-[60%] w-[30%] h-[30%] rounded-full bg-blue-500 blur-[100px] opacity-20"></div>
-    </div>
 
-    <!-- Navigation -->
-    <nav class="glass-nav sticky top-0 z-40 w-full">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                        <i class="fa-solid fa-atom text-white text-xl"></i>
-                    </div>
-                    <span class="font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-purple-200">
-                        Antigravity Portal
-                    </span>
+<body class="text-gray-200 font-sans antialiased relative overflow-x-hidden">
+    <!-- Decorative Background Elements -->
+    <div class="blob bg-indigo-600 w-96 h-96 top-[-100px] left-[-100px]"></div>
+    <div class="blob bg-purple-700 w-80 h-80 bottom-[-50px] right-[-50px]" style="animation-delay: -5s;"></div>
+    <div class="blob bg-blue-800 w-72 h-72 top-[40%] left-[60%]" style="animation-delay: -10s;"></div>
+
+    <!-- Header -->
+    <header class="glass-header sticky top-0 z-50">
+        <div
+            class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3 w-full md:w-auto">
+                <div
+                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shrink-0">
+                    A
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <button onclick="switchTab('docs')" id="tab-docs" class="tab-btn active px-4 py-2 rounded-t-lg text-sm font-semibold flex items-center gap-2">
-                            <i class="fa-solid fa-folder-open"></i> Kho Tài Liệu
-                        </button>
-                        <button onclick="switchTab('contacts')" id="tab-contacts" class="tab-btn px-4 py-2 rounded-t-lg text-sm font-semibold flex items-center gap-2">
-                            <i class="fa-solid fa-address-book"></i> Danh Bạ Nhân Sự
-                        </button>
-                    </div>
+                <div>
+                    <h1 class="text-xl font-bold text-white tracking-wide">Antigravity Internal</h1>
+                    <p class="text-xs text-indigo-300 font-medium tracking-wider uppercase">Team Portal</p>
                 </div>
             </div>
+
+            <!-- Global Search -->
+            <div class="relative w-full md:w-96">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input type="text" id="searchInput"
+                    class="block w-full pl-10 pr-3 py-2 border border-white/10 rounded-xl leading-5 bg-white/5 text-white placeholder-gray-400 focus:outline-none focus:bg-white/10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 sm:text-sm transition-all shadow-inner"
+                    placeholder="Search documents or contacts...">
+            </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" style="min-height: calc(100vh - 64px);">
-        
-        <!-- Header & Search -->
-        <div class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-                <h1 id="page-title" class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                    Kho Tài Liệu Nội Bộ
-                </h1>
-                <p id="page-subtitle" class="text-gray-400 mt-1 text-sm">
-                    Tra cứu quy chế, văn bản, biểu mẫu hiện hành của công ty.
-                </p>
-            </div>
-            
-            <div class="relative w-full md:w-96 group">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="fa-solid fa-magnifying-glass text-gray-400 group-focus-within:text-indigo-400 transition-colors"></i>
-                </div>
-                <input type="text" id="searchInput" onkeyup="handleSearch()" 
-                    class="search-input w-full pl-10 pr-3 py-2.5 rounded-xl transition duration-300" 
-                    placeholder="Tìm kiếm tài liệu...">
-                <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                    <span class="text-xs text-gray-500 font-mono">/</span>
-                </div>
-            </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10 min-h-screen">
+
+        <!-- Tabs -->
+        <div class="flex space-x-4 mb-8 border-b border-white/10 pb-2">
+            <button id="tab-docs"
+                class="tab-btn active px-4 py-2 text-sm font-medium text-white border-b-2 border-indigo-500 focus:outline-none transition-colors">Documents</button>
+            <button id="tab-contacts"
+                class="tab-btn px-4 py-2 text-sm font-medium text-gray-400 hover:text-white border-b-2 border-transparent focus:outline-none transition-colors">Directory</button>
         </div>
 
-        <!-- Render Container -->
-        <div id="content-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Content will be injected here by JS -->
-        </div>
-        
-        <!-- Empty State (Hidden by default) -->
-        <div id="empty-state" class="hidden flex-col items-center justify-center py-20 text-gray-400">
-            <i class="fa-regular fa-folder-open text-6xl mb-4 opacity-50"></i>
-            <h3 class="text-xl font-medium text-white mb-2">Không tìm thấy dữ liệu</h3>
-            <p>Không có kết quả nào khớp với từ khóa tìm kiếm của bạn.</p>
-        </div>
+        <!-- Documents Section -->
+        <section id="section-docs" class="mb-12 animate-fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <h2
+                    class="text-2xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    Company Documents</h2>
+                <span
+                    class="px-3 py-1 text-xs font-semibold bg-indigo-500/20 text-indigo-300 rounded-full border border-indigo-500/30"
+                    id="docCount">0 items</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="documentsList">
+                <!-- Documents will be injected here -->
+            </div>
+            <div id="noDocs"
+                class="hidden text-center py-12 text-gray-400 glass-card rounded-2xl border border-dashed border-white/20">
+                <svg class="mx-auto h-12 w-12 text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+                <p class="text-lg font-medium">No documents found matching your search.</p>
+                <p class="text-sm mt-1">Try adjusting your search query.</p>
+            </div>
+        </section>
 
+        <!-- Contacts Section -->
+        <section id="section-contacts" class="hidden mb-12 animate-fade-in">
+            <div class="flex items-center justify-between mb-6">
+                <h2
+                    class="text-2xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+                    Team Directory</h2>
+                <span
+                    class="px-3 py-1 text-xs font-semibold bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30"
+                    id="contactCount">0 members</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="contactsList">
+                <!-- Contacts will be injected here -->
+            </div>
+            <div id="noContacts"
+                class="hidden text-center py-12 text-gray-400 glass-card rounded-2xl border border-dashed border-white/20">
+                <svg class="mx-auto h-12 w-12 text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                <p class="text-lg font-medium">No contacts found matching your search.</p>
+                <p class="text-sm mt-1">Try checking for typos or use different keywords.</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-12 py-6 border-t border-white/10 text-center text-sm text-gray-500">
+            &copy; 2026 Antigravity Corp. Internal use only. Powered by AI.
+        </footer>
     </main>
 
     <!-- Document Modal -->
-    <div id="docModal" class="modal fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-        <div class="glass w-full max-w-4xl max-h-[90vh] rounded-2xl flex flex-col shadow-2xl overflow-hidden transform transition-all duration-300 scale-95 opacity-0" id="modalContent">
-            <div class="flex justify-between items-center p-6 border-b border-white/10 bg-white/5">
-                <h2 id="modalTitle" class="text-2xl font-bold text-white flex gap-3 items-center">
-                    <i class="fa-solid fa-file-contract text-indigo-400"></i>
-                    <span>Tên tài liệu</span>
-                </h2>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-            <div class="p-6 overflow-y-auto custom-scrollbar flex-1 bg-black/20">
-                <div id="modalBody" class="text-gray-200 leading-relaxed whitespace-pre-wrap font-mono text-sm">
-                    Nội dung tài liệu...
+    <div id="docModal" class="modal">
+        <div
+            class="modal-content glass-card rounded-2xl w-11/12 md:w-3/4 max-w-4xl max-h-[90vh] flex flex-col shadow-2xl border border-indigo-500/30">
+            <div class="flex justify-between items-center p-6 border-b border-white/10 bg-indigo-900/20 rounded-t-2xl">
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-500/20 p-2 rounded-lg text-indigo-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white leading-tight" id="modalTitle">Document Title</h3>
                 </div>
-            </div>
-            <div class="p-4 border-t border-white/10 bg-white/5 flex justify-end">
-                <button onclick="closeModal()" class="px-6 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors shadow-lg shadow-indigo-500/30">
-                    Đóng
+                <button id="closeModal"
+                    class="text-gray-400 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
                 </button>
+            </div>
+            <div class="p-6 md:p-8 overflow-y-auto whitespace-pre-wrap text-gray-300 leading-relaxed text-sm md:text-base font-medium"
+                id="modalContent">
+                <!-- Content injected here -->
+            </div>
+            <div class="p-4 border-t border-white/10 bg-black/20 text-right rounded-b-2xl">
+                <button id="closeModalBtn"
+                    class="px-6 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg transition-colors font-medium shadow-lg shadow-indigo-500/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-indigo-500">Đóng
+                    tài liệu</button>
             </div>
         </div>
     </div>
 
-    <style>
-        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
-    </style>
+    <!-- Data Import -->
+    <script src="data.js"></script>
 
+    <!-- Application Logic -->
     <script>
-        let currentTab = 'docs'; // 'docs' or 'contacts'
-        
-        // Ensure portalData is loaded
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const documentsList = document.getElementById('documentsList');
+            const contactsList = document.getElementById('contactsList');
+            const searchInput = document.getElementById('searchInput');
+
+            const tabDocs = document.getElementById('tab-docs');
+            const tabContacts = document.getElementById('tab-contacts');
+            const sectionDocs = document.getElementById('section-docs');
+            const sectionContacts = document.getElementById('section-contacts');
+
+            const docModal = document.getElementById('docModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementById('closeModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            let currentTab = 'docs'; // docs or contacts
+
+            // Ensure portalData exists
             if (typeof portalData === 'undefined') {
-                document.getElementById('content-container').innerHTML = `
-                    <div class="col-span-full text-center py-10 bg-red-500/20 text-red-200 rounded-xl border border-red-500/30">
-                        <i class="fa-solid fa-triangle-exclamation text-3xl mb-3"></i>
-                        <p>Lỗi: Không tìm thấy file data.js. Vui lòng chạy tool xuất dữ liệu trước.</p>
-                    </div>`;
+                console.error("Missing portalData via data.js. Ensure data.js exists in the same directory and contains the portalData object.");
+                documentsList.innerHTML = '<div class="col-span-full py-12 text-center text-red-400 glass-card rounded-xl border border-red-500/30">Lỗi: Không tìm thấy dữ liệu (data.js). Vui lòng kiểm tra lại quá trình nén dữ liệu.</div>';
                 return;
             }
-            renderData();
-        });
 
-        function switchTab(tab) {
-            currentTab = tab;
-            
-            // Update UI
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`tab-${tab}`).classList.add('active');
-            
-            // Update Header
-            if (tab === 'docs') {
-                document.getElementById('page-title').innerText = 'Kho Tài Liệu Nội Bộ';
-                document.getElementById('page-subtitle').innerText = 'Tra cứu quy chế, văn bản, biểu mẫu hiện hành của công ty.';
-                document.getElementById('searchInput').placeholder = 'Tìm kiếm tài liệu...';
-            } else {
-                document.getElementById('page-title').innerText = 'Danh Bạ Nhân Sự';
-                document.getElementById('page-subtitle').innerText = 'Thông tin liên lạc của các thành viên trong công ty.';
-                document.getElementById('searchInput').placeholder = 'Tìm kiếm tên, phòng ban...';
+            const docs = portalData.documents || [];
+            const contacts = portalData.contacts || [];
+
+            document.getElementById('docCount').textContent = `${docs.length} items`;
+            document.getElementById('contactCount').textContent = `${contacts.length} members`;
+
+            // Function to escape HTML to prevent XSS (if content were user-generated, though here it's static)
+            function escapeHtml(unsafe) {
+                return (unsafe || '').toString()
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
             }
-            
-            // Clear search
-            document.getElementById('searchInput').value = '';
-            
-            renderData();
-        }
 
-        function renderData(searchQuery = '') {
-            const container = document.getElementById('content-container');
-            const emptyState = document.getElementById('empty-state');
-            container.innerHTML = '';
-            
-            const query = searchQuery.toLowerCase();
-            let hasResults = false;
+            // Render Documents
+            function renderDocs(dataToRender) {
+                documentsList.innerHTML = '';
+                if (dataToRender.length === 0) {
+                    document.getElementById('noDocs').classList.remove('hidden');
+                } else {
+                    document.getElementById('noDocs').classList.add('hidden');
+                    dataToRender.forEach(doc => {
+                        const div = document.createElement('div');
+                        div.className = 'glass-card rounded-2xl p-6 group hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full relative overflow-hidden border border-white/5 hover:border-indigo-500/30';
 
-            if (currentTab === 'docs') {
-                const docs = portalData.documents || [];
-                docs.forEach(doc => {
-                    if (doc.title.toLowerCase().includes(query) || doc.preview.toLowerCase().includes(query)) {
-                        hasResults = true;
-                        container.innerHTML += \`
-                            <div class="glass-card rounded-2xl p-6 flex flex-col h-full cursor-pointer group" onclick="openDoc('\${doc.id}')">
-                                <div class="w-12 h-12 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                                    <i class="fa-solid fa-file-lines text-xl"></i>
+                        // Decorative accent line
+                        const accent = document.createElement('div');
+                        accent.className = 'absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500 opacity-50 group-hover:opacity-100 transition-opacity';
+                        div.appendChild(accent);
+
+                        div.innerHTML += `
+                            <div class="flex flex-col h-full">
+                                <div class="flex items-start gap-4 mb-4">
+                                    <div class="bg-indigo-500/10 p-3 rounded-xl border border-indigo-500/20 text-indigo-400 group-hover:text-indigo-300 group-hover:bg-indigo-500/20 transition-colors shrink-0">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    </div>
+                                    <h3 class="text-lg font-bold text-white group-hover:text-indigo-200 transition-colors line-clamp-2 leading-tight">${escapeHtml(doc.title)}</h3>
                                 </div>
-                                <h3 class="text-lg font-bold text-white mb-2 line-clamp-1">\${doc.title}</h3>
-                                <p class="text-sm text-gray-400 flex-1 line-clamp-3 mb-4">\${doc.preview}</p>
-                                <div class="mt-auto pt-4 border-t border-white/10 flex justify-between items-center text-xs text-indigo-300 font-medium">
-                                    <span>Đọc chi tiết</span>
-                                    <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                                </div>
-                            </div>
-                        \`;
-                    }
-                });
-            } else {
-                const contacts = portalData.contacts || [];
-                contacts.forEach(contact => {
-                    if (contact.Ho_Ten.toLowerCase().includes(query) || 
-                        contact.Phong_Ban.toLowerCase().includes(query) ||
-                        contact.Chuc_Vu.toLowerCase().includes(query) ||
-                        contact.Email.toLowerCase().includes(query)) {
-                        
-                        hasResults = true;
-                        
-                        // Generate Avatar Initials
-                        const initials = contact.Ho_Ten.split(' ').map(n=>n[0]).slice(-2).join('').toUpperCase();
-                        
-                        container.innerHTML += \`
-                            <div class="glass-card rounded-2xl p-6 flex flex-col h-full relative overflow-hidden">
-                                <div class="absolute top-0 right-0 w-24 h-24 bg-purple-500/10 rounded-bl-full -z-10"></div>
-                                <div class="flex items-start gap-4 mb-5">
-                                    <div class="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                                        \${initials}
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h3 class="text-lg font-bold text-white truncate">\${contact.Ho_Ten}</h3>
-                                        <div class="inline-block mt-1 px-2.5 py-1 rounded-full bg-white/10 text-xs text-indigo-200 font-medium whitespace-nowrap">
-                                            \${contact.Phong_Ban}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="space-y-3 mt-auto">
-                                    <div class="flex items-center gap-3 text-sm text-gray-300">
-                                        <i class="fa-solid fa-briefcase text-gray-400 w-4"></i>
-                                        <span class="truncate">\${contact.Chuc_Vu}</span>
-                                    </div>
-                                    <div class="flex items-center gap-3 text-sm text-gray-300">
-                                        <i class="fa-solid fa-envelope text-gray-400 w-4"></i>
-                                        <a href="mailto:\${contact.Email}" class="hover:text-indigo-300 transition-colors truncate">\${contact.Email}</a>
-                                    </div>
-                                    <div class="flex items-center gap-3 text-sm text-gray-300">
-                                        <i class="fa-solid fa-phone text-gray-400 w-4"></i>
-                                        <a href="tel:\${contact.So_Dien_Thoai}" class="hover:text-indigo-300 transition-colors">\${contact.So_Dien_Thoai}</a>
+                                <p class="text-sm text-gray-400 flex-grow group-hover:text-gray-300 transition-colors line-clamp-3 leading-relaxed">${escapeHtml(doc.preview).replace(/\\n/g, ' ')}</p>
+                                <div class="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-indigo-400 text-sm font-semibold group-hover:text-indigo-300">
+                                    <span>Xem chi tiết</span>
+                                    <div class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-indigo-500 group-hover:text-white transition-all">
+                                        <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                     </div>
                                 </div>
                             </div>
-                        \`;
-                    }
-                });
+                        `;
+                        div.addEventListener('click', () => openModal(doc));
+                        documentsList.appendChild(div);
+                    });
+                }
             }
 
-            // Toggle empty state
-            if (hasResults) {
-                container.classList.remove('hidden');
-                emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
-            } else {
-                container.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-            }
-        }
+            // Render Contacts
+            function renderContacts(dataToRender) {
+                contactsList.innerHTML = '';
+                if (dataToRender.length === 0) {
+                    document.getElementById('noContacts').classList.remove('hidden');
+                } else {
+                    document.getElementById('noContacts').classList.add('hidden');
+                    dataToRender.forEach(contact => {
+                        const div = document.createElement('div');
+                        div.className = 'glass-card rounded-2xl p-6 group hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 relative overflow-hidden text-center flex flex-col items-center border border-white/5 hover:border-purple-500/30';
 
-        function handleSearch() {
-            const query = document.getElementById('searchInput').value;
-            renderData(query);
-        }
+                        // Decorative accent line
+                        const accent = document.createElement('div');
+                        accent.className = 'absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500 opacity-50 group-hover:opacity-100 transition-opacity';
+                        div.appendChild(accent);
 
-        // Modal Logic
-        function openDoc(id) {
-            const doc = portalData.documents.find(d => d.id === id);
-            if (!doc) return;
-            
-            document.getElementById('modalTitle').innerHTML = \`<i class="fa-solid fa-file-contract text-indigo-400"></i> <span>\${doc.title}</span>\`;
-            document.getElementById('modalBody').innerText = doc.content;
-            
-            const modal = document.getElementById('docModal');
-            const modalContent = document.getElementById('modalContent');
-            
-            modal.classList.add('active');
-            // Small trigger delay for animation
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-            
-            // Prevent body scroll
-            document.body.style.overflow = 'hidden';
-        }
+                        // Initials for avatar
+                        let initials = 'NA';
+                        if (contact.Ho_Ten) {
+                            const parts = contact.Ho_Ten.trim().split(' ');
+                            if (parts.length > 1) {
+                                initials = (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+                            } else {
+                                initials = parts[0].substring(0, 2).toUpperCase();
+                            }
+                        }
 
-        function closeModal() {
-            const modal = document.getElementById('docModal');
-            const modalContent = document.getElementById('modalContent');
-            
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            
-            setTimeout(() => {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            }, 300);
-        }
+                        div.innerHTML += `
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-900 to-purple-900 border-2 border-white/10 flex items-center justify-center text-2xl font-bold text-white shadow-xl mb-4 group-hover:border-purple-500/50 group-hover:scale-110 transition-all duration-300">
+                                ${escapeHtml(initials)}
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 group-hover:text-purple-300 transition-colors">${escapeHtml(contact.Ho_Ten)}</h3>
+                            <p class="text-xs text-purple-400 font-semibold mb-4 px-2 py-1 bg-purple-500/10 rounded-md border border-purple-500/20 whitespace-nowrap overflow-hidden text-ellipsis max-w-full">${escapeHtml(contact.Chuc_Vu)}</p>
+                            
+                            <div class="w-full bg-white/5 rounded-xl p-3 text-left border border-white/5 space-y-2.5 mt-auto">
+                                <div class="flex items-center text-xs text-gray-300 group-hover:text-white transition-colors">
+                                    <div class="w-6 flex justify-center text-gray-500 group-hover:text-purple-400 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                    </div>
+                                    <span class="truncate ml-1 font-medium">${escapeHtml(contact.Phong_Ban)}</span>
+                                </div>
+                                <div class="flex items-center text-xs text-gray-300 group-hover:text-white transition-colors">
+                                    <div class="w-6 flex justify-center text-gray-500 group-hover:text-purple-400 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    </div>
+                                    <a href="mailto:${escapeHtml(contact.Email)}" class="hover:underline truncate ml-1 font-medium" title="${escapeHtml(contact.Email)}">${escapeHtml(contact.Email)}</a>
+                                </div>
+                                <div class="flex items-center text-xs text-gray-300 group-hover:text-white transition-colors">
+                                    <div class="w-6 flex justify-center text-gray-500 group-hover:text-purple-400 transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                                    </div>
+                                    <a href="tel:${escapeHtml(contact.So_Dien_Thoai)}" class="hover:underline ml-1 font-medium">${escapeHtml(contact.So_Dien_Thoai)}</a>
+                                </div>
+                            </div>
+                        `;
+                        contactsList.appendChild(div);
+                    });
+                }
+            }
 
-        // Close modal on click outside
-        document.getElementById('docModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+            // Search Logic
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+
+                // Filter docs
+                const filteredDocs = docs.filter(doc =>
+                    (doc.title && doc.title.toLowerCase().includes(query)) ||
+                    (doc.content && doc.content.toLowerCase().includes(query))
+                );
+                renderDocs(filteredDocs);
+
+                // Filter contacts
+                const filteredContacts = contacts.filter(contact =>
+                    (contact.Ho_Ten && contact.Ho_Ten.toLowerCase().includes(query)) ||
+                    (contact.Chuc_Vu && contact.Chuc_Vu.toLowerCase().includes(query)) ||
+                    (contact.Phong_Ban && contact.Phong_Ban.toLowerCase().includes(query)) ||
+                    (contact.Email && contact.Email.toLowerCase().includes(query)) ||
+                    (contact.So_Dien_Thoai && contact.So_Dien_Thoai.toLowerCase().includes(query))
+                );
+                renderContacts(filteredContacts);
+            });
+
+            // Tabs Logic
+            function switchTab(tab) {
+                currentTab = tab;
+                if (tab === 'docs') {
+                    tabDocs.classList.replace('text-gray-400', 'text-white');
+                    tabDocs.classList.replace('border-transparent', 'border-indigo-500');
+
+                    tabContacts.classList.replace('text-white', 'text-gray-400');
+                    tabContacts.classList.replace('border-indigo-500', 'border-transparent');
+
+                    sectionDocs.classList.remove('hidden');
+                    sectionContacts.classList.add('hidden');
+                } else {
+                    tabContacts.classList.replace('text-gray-400', 'text-white');
+                    tabContacts.classList.replace('border-transparent', 'border-indigo-500');
+
+                    tabDocs.classList.replace('text-white', 'text-gray-400');
+                    tabDocs.classList.replace('border-indigo-500', 'border-transparent');
+
+                    sectionContacts.classList.remove('hidden');
+                    sectionDocs.classList.add('hidden');
+                }
             }
-        });
-        
-        // Listen to keyboard shortcut (Slash to focus search)
-        document.addEventListener('keydown', (e) => {
-            if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
-                e.preventDefault();
-                document.getElementById('searchInput').focus();
+
+            tabDocs.addEventListener('click', () => switchTab('docs'));
+            tabContacts.addEventListener('click', () => switchTab('contacts'));
+
+            // Modal Logic
+            function openModal(doc) {
+                modalTitle.textContent = doc.title;
+                modalContent.textContent = doc.content;
+                docModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent body scroll
             }
-            if (e.key === 'Escape') {
-                const modal = document.getElementById('docModal');
-                if (modal.classList.contains('active')) closeModal();
+
+            function closeModelFunc() {
+                docModal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore body scroll
             }
+
+            closeModal.addEventListener('click', closeModelFunc);
+            closeModalBtn.addEventListener('click', closeModelFunc);
+
+            // Close modal when clicking outside
+            docModal.addEventListener('click', (e) => {
+                if (e.target === docModal) {
+                    closeModelFunc();
+                }
+            });
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && docModal.classList.contains('active')) {
+                    closeModelFunc();
+                }
+            });
+
+            // Initial Render
+            renderDocs(docs);
+            renderContacts(contacts);
         });
     </script>
 </body>
+
 </html>

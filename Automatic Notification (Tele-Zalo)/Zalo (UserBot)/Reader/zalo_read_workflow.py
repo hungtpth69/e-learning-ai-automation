@@ -1,17 +1,12 @@
-"""
-Zalo Web DOM Automation (UserBot) - Chế độ ĐỌC TIN NHẮN
-Sử dụng thư viện Playwright để tìm số điện thoại và cào nội dung tin nhắn chat gần nhất.
-"""
-
 from playwright.sync_api import sync_playwright
 import time
 import csv
 import os
+import re
 
-def read_zalo_messages(csv_file='read_list.csv', num_messages=5):
-    print("🚀 Bắt đầu khởi chạy Zalo UserBot (Chế độ ĐỌC TIN NHẮN)...")
+def read_zalo_messages(csv_file='read_list.csv', num_messages=10):
+    print("🚀 Bắt đầu khởi chạy Zalo UserBot (Chế độ ĐỌC TIN NHẮN 24H)...")
     with sync_playwright() as p:
-        # Đường dẫn lưu Cookie phiên đăng nhập Zalo (Chỉ chung 1 thư mục ở cấp cha cho cả 2 Use Case)
         base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         user_data_dir = os.path.join(base_dir, 'zalo_user_data_session')
         
@@ -36,6 +31,8 @@ def read_zalo_messages(csv_file='read_list.csv', num_messages=5):
             
         print(f"📂 Đang lấy tin nhắn cho các liên hệ trong {csv_file}...\n")
         
+        extracted_data = {}
+
         try:
             with open(csv_file, mode='r', encoding='utf-8-sig') as file:
                 reader = csv.DictReader(file)
@@ -43,7 +40,8 @@ def read_zalo_messages(csv_file='read_list.csv', num_messages=5):
                     phone = row['Phone Number'].strip()
                     name = row['Name'].strip()
                     
-                    print(f"\n-> Đang mở đoạn chat của: {name} ({phone})")
+                    print(f"\n=====================================")
+                    print(f"-> Đang mở đoạn chat của: {name} ({phone})")
                     
                     search_input = page.locator('#contact-search-input')
                     search_input.click()
@@ -59,25 +57,29 @@ def read_zalo_messages(csv_file='read_list.csv', num_messages=5):
                     
                     print("   🤖 Đang sử dụng Agent quét cấu trúc DOM để trích xuất tin nhắn...")
                     
+                    # Kiểm tra nút đồng bộ
+                    sync_btn = page.locator('text=Đồng bộ ngay')
+                    if sync_btn.count() > 0:
+                        print("   [⚠️] TÀI KHOẢN CHƯA ĐỒNG BỘ: Zalo đang yêu cầu 'Đồng bộ ngay'. Không thể đọc lịch sử trò chuyện cũ trên thiết bị này.")
+                    
                     try:
-                        message_elements = page.locator('span.text, div.text-content, div.card--text, div[id^="msg-"]')
-                        count = message_elements.count()
-                        if count == 0:
-                            try:
-                                text_fallback = page.locator('.message-view__blur__chat-content, #messageViewContainer, .chat-message-list').first.inner_text()
-                                print(f"   [Nội Dung Khung Chat]:\n   {text_fallback[-500:]}")
-                            except:
-                                print("   [🔴] Không thể lấy tin nhắn từ người này.")
+                        # Cuộn lên một chút để load tin nhắn cũ nếu cần
+                        page.mouse.wheel(0, -2000)
+                        time.sleep(2)
+                        
+                        # Lấy innerText của khung chat, nó thường chứa cả Ngày tháng và Giờ
+                        chat_text = page.evaluate('() => document.querySelector("#messageViewContainer, #messageViewScroll, .message-view__scroll__inner")?.innerText || ""')
+                        
+                        if chat_text:
+                            # Tách thành mảng các dòng và in ra
+                            lines = [line.strip() for line in chat_text.split('\n') if line.strip()]
+                            print(f"   [🟢] Raw chat content (latest {num_messages*2} lines):")
+                            for line in lines[-num_messages*2:]:
+                                print(f"      | {line}")
+                            
+                            extracted_data[name] = lines
                         else:
-                            start_idx = max(0, count - num_messages)
-                            print(f"   [🟢] Lấy ra {min(num_messages, count)} nội dung mới nhất:")
-                            for i in range(start_idx, count):
-                                msg_text = message_elements.nth(i).inner_text().strip()
-                                if msg_text:
-                                    msg_short = msg_text.replace('\n', ' ')
-                                    if len(msg_short) > 150: 
-                                        msg_short = msg_short[:150] + '...'
-                                    print(f"      - {msg_short}")
+                            print("   [🔴] Khung chat trống hoặc không thể lấy text.")
                                     
                     except Exception as e:
                         print(f"   [🔴] Lỗi kỹ thuật khi phân tích DOM: {e}")
